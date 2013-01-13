@@ -1,0 +1,9 @@
+<ul class="news">
+	<li ng-repeat="item in items | orderBy:'date': true">
+	  <div>
+	  	<div class="pull-left"><span class="badge date">{{item.date | date:'d MMMM y'}}</span></div>
+	  	<div><span class="title">{{item.title}}</span></div>
+	  </div>
+	  <div class="text" ng-bind-html-unsafe="item.text | processLinks"></div>
+	</li>
+</ul>

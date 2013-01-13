@@ -1,0 +1,5 @@
+<ol class="documents">
+	<li ng-repeat="doc in documents">
+	  <a href="{{doc.file | toDocUrl | viewInGoogleDoc}}">{{doc.name}}</a>
+	</li>
+</ol>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru" ng-app="app">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Поныровская детская школа искусств</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <meta name="fragment" content="!" />
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style type="text/css">
+        body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+
+
+        <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              <a class="brand" href="#/home">Поныровская детская школа искусств</a>
+              <ul class="nav pull-right">
+                  <li><a href="#/docs"><span><i class="icon-th-list"></i> <span class="visible-desktop">Документы</span></span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+
+            <div class="row">
+                <div ng-view></div>
+            </div>
+
+            <!--[if lt IE 9]>
+                <div>
+                <p class="chromeframe">Вы используете <strong>устаревшую версию</strong> браузера. Пожалуйста <a href="http://browsehappy.com/">обновите ваш браузер</a> или <a href="http://www.google.com/chromeframe/?redirect=true">воспользуйтесь Google Chrome Frame</a>.</p>
+                </div>
+            <![endif]-->
+
+
+            <footer>
+                <small>&copy; МКОУДОД "Поныровская детская школа искусств" 2013</small>
+            </footer>
+
+        </div> <!-- /container -->
+
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+        <script>window.angular || document.write('<script src="js/vendor/angular.min.js"><\/script>')</script>
+        <script src="js/vendor/angular-locale_ru.js"></script>
+        <script src="js/vendor/angular-sanitize.min.js"></script>
+        <script src="js/main.js"></script>
+
+
+    </body>
+</html>

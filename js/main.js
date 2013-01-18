@@ -10,6 +10,11 @@ function DocumentsCtrl($scope, $http){
     });
 }
 
+function ContactsCtrl($scope){
+    $scope.latitude = 52.3182;
+    $scope.longitude =  36.2950;
+}
+
 
 
 function youtube(url){
@@ -85,6 +90,7 @@ angular.module('app', ['ngSanitize']).
     $routeProvider.
       when('/home', {templateUrl: 'partials/home.html',   controller: HomeCtrl}).
       when('/docs', {templateUrl: 'partials/documents.html', controller: DocumentsCtrl}).
+      when('/contacts', {templateUrl: 'partials/contacts.html', controller: ContactsCtrl}).
       otherwise({redirectTo: '/home'});
 }]).filter('processLinks', function($q, $sanitize){
     return function(text){
@@ -105,4 +111,14 @@ angular.module('app', ['ngSanitize']).
   };
 
 
+}).directive('showMap', function(){
+    return function(scope, element, attrs){
+         ymaps.ready(function(){
+            var map = new ymaps.Map (element[0], { center: [scope.latitude, scope.longitude],  zoom: 16  });
+            var placemark = new ymaps.Placemark([scope.latitude, scope.longitude]);
+            map.geoObjects.add(placemark);
+            map.setType('yandex#publicMap');
+        });
+
+    };
 });

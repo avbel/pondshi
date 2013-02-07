@@ -44,18 +44,24 @@ function simpleImageLinkProcessor(url){
 }
 
 
+var linkRegex= /\[(.+)\]\|(https?:\/\/[^\s]+)/gi;
 var urlRegex = /(https?:\/\/[^\s]+)/gi;
 var processors = [youtube,  simpleImageLinkProcessor];
 
 
-function processLinks($sanitize, text) {
+function processLinks(text) {
     var urls = [];
+    var urlsToIgnore = [];
     var u, i, l;
 
-    text = $sanitize(text);
+    while ((u = linkRegex.exec(text)) != null) {
+        urlsToIgnore.push(u[2]);
+    }
 
     while ((u = urlRegex.exec(text)) != null) {
-        urls.push(u[1]);
+        if(urlsToIgnore.indexOf(u[1]) < 0){
+            urls.push(u[1]);
+        }
     }
 
     l = urls.length;
@@ -66,7 +72,8 @@ function processLinks($sanitize, text) {
         //console.log("Processed " + url + " by " + txt);
         text = text.replace(url, txt || url);
     }
-    text =  text.replace(/&#1(0|3)\;/g, "<br/>");
+    text =  text.replace(linkRegex, "<a href=\"$2\" target=\"blank\">$1</a>");
+    text =  text.replace(/(\r)?\n/g, "<br/>");
     return text;
 
 }
@@ -84,7 +91,7 @@ function processUrl(url) {
 
 
 
-angular.module('app', ['ngSanitize']).
+angular.module('app', []).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     //$locationProvider.html5Mode(true);
     $routeProvider.
@@ -92,9 +99,9 @@ angular.module('app', ['ngSanitize']).
       when('/docs', {templateUrl: 'partials/documents.html', controller: DocumentsCtrl}).
       when('/contacts', {templateUrl: 'partials/contacts.html', controller: ContactsCtrl}).
       otherwise({redirectTo: '/home'});
-}]).filter('processLinks', function($q, $sanitize){
+}]).filter('processLinks', function(){
     return function(text){
-        return processLinks($sanitize, text);
+        return processLinks(text);
     };
 }).filter('toDocUrl', function(){
   return function(doc){
